@@ -1,0 +1,23 @@
+label.error{
+	font-style: normal !important;
+	font-weight: normal !important;
+}
+.center{
+	text-align: center;
+}
+
+::-webkit-input-placeholder {
+   color: #D3D4D5 !important;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #D3D4D5 !important;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #D3D4D5 !important;  
+}
+
+:-ms-input-placeholder {  
+   color: #D3D4D5 !important;  
+}
