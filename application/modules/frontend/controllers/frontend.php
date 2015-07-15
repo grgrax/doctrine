@@ -50,6 +50,12 @@ class frontend extends Frontend_Controller {
 		$this->load->view('front/main_layout',$this->data);		
 	}
 
+	function onetoonetbljoincustomerpnos()
+	{
+		$this->data['customers']=$customers=$this->em->getRepository('frontend\models\customer')->findAll();
+		$this->data['subview']=self::MODULE.'cart/customer/list';			
+		$this->load->view('front/main_layout',$this->data);		
+	}
 
 
 	function product($id){
@@ -71,7 +77,7 @@ class frontend extends Frontend_Controller {
 			$this->data['students']=$students=$this->em->getRepository('student\models\student')->findAll();
 			if($this->input->post()){
 				$student = new student\models\student;
-				$student->setName($this->input->post('name'));
+				$student->setName($this->input->post('name')?$this->input->post('name'):null);
 				if($this->input->post('mentor'))
 					$mentor=$this->em->find('student\models\student',$this->input->post('mentor'));
 				$student->setMentor($mentor);

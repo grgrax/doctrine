@@ -5,15 +5,23 @@
 	<div class="form-group">
 		<label for="mentor">Mentor</label>
 		<select name="mentor" id="" class="form-control">
+			<option value="null">select</option>
 			<?php foreach ($students as $std): ?>
-				<?php if($std->getId() === $student->getId()) continue; ?>
+				
+				<?php 
+				if($std->getId() === $student->getId()) 
+					continue;
+				if($std->getMentor() &&  $std->getMentor()->getId()===$student->getId()) 
+					continue;
+				?>
+				
 				<option value="<?php echo $std->getId()?>"
 					<?php 
 					if($student->getMentor())
 						echo $student->getMentor()->getId()==$std->getId()?'selected':''; 
 					?>
 					>
-					<?php echo $student->getName();?>
+					<?php echo $std->getName();?>
 				</option>
 			<?php endforeach ?>
 		</select>

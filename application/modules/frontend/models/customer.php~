@@ -26,7 +26,7 @@ class customer
     private $name;
 
     /**
-    * @ORM\OneToOne(targetEntity="frontend\models\cart",mappedBy="cusomter")
+    * @ORM\OneToOne(targetEntity="frontend\models\cart",mappedBy="customer")
     */
     private $cart;
 
