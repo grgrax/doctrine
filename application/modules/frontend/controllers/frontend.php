@@ -57,6 +57,20 @@ class frontend extends Frontend_Controller {
 		$this->load->view('front/main_layout',$this->data);		
 	}
 
+	function onetomanyfromproduct()
+	{
+		$this->data['products']=$products=$this->em->getRepository('frontend\models\product')->findAll();
+		$this->data['subview']=self::MODULE.'product/list_features';			
+		$this->load->view('front/main_layout',$this->data);		
+	}
+
+
+	function onetomanyfromfeature()
+	{
+		$this->data['features']=$features=$this->em->getRepository('frontend\models\feature')->findAll();
+		$this->data['subview']=self::MODULE.'feature/list';			
+		$this->load->view('front/main_layout',$this->data);		
+	}
 
 	function product($id){
 		$this->data['shippings']=$shippings=$this->em->getRepository('frontend\models\shipping')->findAll();
@@ -127,6 +141,40 @@ class frontend extends Frontend_Controller {
 			redirect('frontend/onetooneuni');			
 		}
 	}
+
+	function add_feature_to_product(){
+		try {
+			if($this->input->post()){
+
+				//feature details
+				$feature = new frontend\models\feature;
+				$feature->setName($this->input->post('feature')?$this->input->post('feature'):NULL);
+				$this->em->persist($feature);
+
+				//product details
+				$product = new frontend\models\product;
+				$product->setName($this->input->post('name')?$this->input->post('name'):NULL);
+				$product->addFeature($feature);
+				$this->em->persist($product);
+
+
+				if($product->getName()!==NULL){
+					$this->em->flush();
+				}else{
+					throw new Exception("Error Processing Request", 1);					
+				}
+				$this->session->set_flashdata('success', 'product added successfully with feature');
+				redirect('frontend/onetomanyfromproduct');
+			}
+			$this->data['subview']=self::MODULE.'product/feature/add';			
+			$this->load->view('front/main_layout',$this->data);		
+			
+		} catch (Exception $e) {
+			$this->session->set_flashdata('error', 'coulnt add product');
+			redirect('frontend/onetomanyfromproduct');			
+		}
+	}
+
 }
 
 /* End of file sample.php */
