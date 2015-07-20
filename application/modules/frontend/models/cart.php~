@@ -27,6 +27,7 @@ class cart
 
     /**
     * @ORM\OneToOne(targetEntity="frontend\models\customer",inversedBy="cart")
+    * @ORM\JoinColumn(nullable=false)
     */
     private $customer;
 
@@ -73,6 +74,8 @@ class cart
      */
     public function setCustomer(\frontend\models\customer $customer = null)
     {
+
+        // $customer->setCart($this);
         $this->customer = $customer;
 
         return $this;

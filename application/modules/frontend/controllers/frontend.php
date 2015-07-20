@@ -50,10 +50,10 @@ class frontend extends Frontend_Controller {
 		$this->load->view('front/main_layout',$this->data);		
 	}
 
-	function onetoonetbljoincustomerpnos()
+	function onetoonetbljoinuserpnos()
 	{
-		$this->data['customers']=$customers=$this->em->getRepository('frontend\models\customer')->findAll();
-		$this->data['subview']=self::MODULE.'cart/customer/list';			
+		$this->data['users']=$users=$this->em->getRepository('frontend\models\user')->findAll();
+		$this->data['subview']=self::MODULE.'user/list';			
 		$this->load->view('front/main_layout',$this->data);		
 	}
 
@@ -110,6 +110,7 @@ class frontend extends Frontend_Controller {
 	}
 
 
+
 	function product_add(){
 		try {
 			if($this->input->post()){
@@ -142,7 +143,68 @@ class frontend extends Frontend_Controller {
 		}
 	}
 
-	function add_feature_to_product(){
+	function cart_add(){
+		try {
+			$this->data['customers']=$customers=$this->em->getRepository('frontend\models\customer')->findAll();
+			if($this->input->post()){
+				$cart = new \frontend\models\cart;
+				$customer = new \frontend\models\customer;
+
+				$cart->setCartNumber($this->input->post('no')?$this->input->post('no'):NULL);
+				$customer->setName($this->input->post('customer')?$this->input->post('customer'):NULL);
+
+				$cart->setCustomer($customer);
+				$this->em->persist($customer);
+
+
+				$this->em->persist($cart);
+				$this->em->flush();
+				$this->session->set_flashdata('success', 'article added successfully');
+				redirect('frontend/onetoonebi');
+			}
+			$this->data['subview']=self::MODULE.'cart/add';			
+			$this->load->view('front/main_layout',$this->data);		
+			
+		} catch (Exception $e) {
+			die($e->getMessage());
+			$this->session->set_flashdata("error {$e->getMessage()}", 'coulnt add cart');
+			redirect('frontend/onetoonebi');			
+		}
+	}
+
+
+	function customer_add(){
+		try {
+			$this->data['customers']=$customers=$this->em->getRepository('frontend\models\customer')->findAll();
+			if($this->input->post()){
+				
+				$customer = new \frontend\models\customer;
+				$customer->setName($this->input->post('customer')?$this->input->post('customer'):NULL);
+				
+				$cart = new \frontend\models\cart;
+				$cart->setCartNumber($this->input->post('no')?$this->input->post('no'):NULL);
+
+				$cart->setCustomer($customer);
+				$customer->setCart($cart);
+
+				$this->em->persist($cart);				
+				
+				$this->em->persist($customer);
+				$this->em->flush();
+
+				$this->session->set_flashdata('success', 'customer added successfully');
+				redirect('frontend/onetoonebi');
+			}
+			$this->data['subview']=self::MODULE.'cart/customer/add';			
+			$this->load->view('front/main_layout',$this->data);		
+			
+		} catch (Exception $e) {
+			die($e->getMessage());
+			$this->session->set_flashdata("error {$e->getMessage()}", 'coulnt add customer');
+			redirect('frontend/onetoonebicustomers');			
+		}
+	}
+	function add_feature($product){
 		try {
 			if($this->input->post()){
 
@@ -152,10 +214,9 @@ class frontend extends Frontend_Controller {
 				$this->em->persist($feature);
 
 				//product details
-				$product = new frontend\models\product;
-				$product->setName($this->input->post('name')?$this->input->post('name'):NULL);
+				$product = $this->find('frontend\models\prodcut',$prodcut);
 				$product->addFeature($feature);
-				$this->em->persist($product);
+				$product = $this->find('frontend\models\prodcut',$prodcut);
 
 
 				if($product->getName()!==NULL){

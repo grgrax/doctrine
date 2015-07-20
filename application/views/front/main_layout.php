@@ -39,7 +39,7 @@ else if($CI->session->flashdata('error')){
 							</li></a>
 							<a href="<?php echo base_url('frontend/onetoonebi')?>"><li>1-1 bi : cart-customer</li></a>
 							<a href="<?php echo base_url('frontend/onetoonebicustomers')?>"><li>1-1 bi : customer-cart</li></a>
-							<a href="<?php echo base_url('frontend/onetoonetbljoincustomerpnos')?>"><li>1-8 with join table -- 8-8 : user-phone nos</li></a>
+							<a href="<?php echo base_url('frontend/onetoonetbljoinuserpnos')?>"><li>1-8 with join table -- 8-8 : user-phone nos</li></a>
 							<a href="<?php echo base_url('frontend/onetomanyfromproduct')?>"><li>1-8 bi : product-features</li></a>
 							<a href="<?php echo base_url('frontend/onetomanyfromfeature')?>"><li>1-8 bi : features-product</li></a>
 						</ul>			
