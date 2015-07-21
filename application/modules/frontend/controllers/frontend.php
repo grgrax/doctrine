@@ -57,10 +57,10 @@ class frontend extends Frontend_Controller {
 		$this->load->view('front/main_layout',$this->data);		
 	}
 
-	function onetomanyfromproduct()
+	function onetomanyfromeproduct()
 	{
-		$this->data['products']=$products=$this->em->getRepository('frontend\models\product')->findAll();
-		$this->data['subview']=self::MODULE.'product/list_features';			
+		$this->data['eproducts']=$products=$this->em->getRepository('frontend\models\eproduct')->findAll();
+		$this->data['subview']=self::MODULE.'eproduct/feature/list';			
 		$this->load->view('front/main_layout',$this->data);		
 	}
 
@@ -204,8 +204,11 @@ class frontend extends Frontend_Controller {
 			redirect('frontend/onetoonebicustomers');			
 		}
 	}
-	function add_feature($product){
+	function add_feature($eproduct){
 		try {
+			$eproduct = $this->em->find('frontend\models\eproduct',$eproduct);
+			if(!$eproduct) throw new Exception("no eproduct found", 1);
+			$this->data['eproduct']=$eproduct;			
 			if($this->input->post()){
 
 				//feature details
@@ -213,30 +216,77 @@ class frontend extends Frontend_Controller {
 				$feature->setName($this->input->post('feature')?$this->input->post('feature'):NULL);
 				$this->em->persist($feature);
 
-				//product details
-				$product = $this->find('frontend\models\prodcut',$prodcut);
-				$product->addFeature($feature);
-				$product = $this->find('frontend\models\prodcut',$prodcut);
+				//eproduct details
+				$feature->seteProduct($eproduct);
 
 
-				if($product->getName()!==NULL){
-					$this->em->flush();
-				}else{
-					throw new Exception("Error Processing Request", 1);					
-				}
-				$this->session->set_flashdata('success', 'product added successfully with feature');
-				redirect('frontend/onetomanyfromproduct');
+				$this->em->flush();
+				$this->session->set_flashdata('success', 'eproduct added successfully with feature');
+				redirect('frontend/onetomanyfromeproduct');
 			}
-			$this->data['subview']=self::MODULE.'product/feature/add';			
+			$this->data['subview']=self::MODULE.'eproduct/feature/add';			
 			$this->load->view('front/main_layout',$this->data);		
 			
 		} catch (Exception $e) {
-			$this->session->set_flashdata('error', 'coulnt add product');
+			die($e->getMessage());
+			$this->session->set_flashdata('error {$e->getMessage()}', 'coulnt add eproduct');
 			redirect('frontend/onetomanyfromproduct');			
 		}
 	}
 
-}
+// 9137766706699055
+
+	function add_eproduct(){
+		try{
+			if($this->input->post()){
+
+				//eproduct details
+				$eproduct = new frontend\models\eproduct;
+				$eproduct->setName($this->input->post('name')?$this->input->post('name'):NULL);
+				$this->em->persist($eproduct);
+				$this->em->flush();
+
+				$this->session->set_flashdata('success', 'eproduct added successfully');
+				redirect('frontend/onetomanyfromeproduct');
+			}
+			$this->data['subview']=self::MODULE.'eproduct/add';			
+			$this->load->view('front/main_layout',$this->data);		
+
+		} catch (Exception $e) {
+			$this->session->set_flashdata('error', 'coulnt add eproduct {$e->getMessage()}');
+			redirect('frontend/onetomanyfromeproduct');			
+		}
+	}
+
+	function add_eproduct_add_feature(){
+		try{
+			if($this->input->post()){
+
+				//eproduct details
+				$eproduct = new frontend\models\eproduct;
+				$eproduct->setName($this->input->post('name')?$this->input->post('name'):NULL);
+				foreach ($this->input->post('feature') as $f) {
+					$feature = new frontend\models\feature;
+					$feature->setName($f);
+					$feature->seteProduct($eproduct);
+					$this->em->persist($feature);
+				}
+				$this->em->persist($eproduct);
+				$this->em->flush();
+
+				$this->session->set_flashdata('success', 'eproduct added successfully');
+				redirect('frontend/onetomanyfromeproduct');
+			}
+			$this->data['subview']=self::MODULE.'eproduct/feature/add';			
+			$this->load->view('front/main_layout',$this->data);		
+
+		} catch (Exception $e) {
+			$this->session->set_flashdata('error', 'coulnt add eproduct {$e->getMessage()}');
+			redirect('frontend/onetomanyfromeproduct');			
+		}
+
+	}
+}	
 
 /* End of file sample.php */
 /* Location: ./application/modules/sample/controllers/sample.php */

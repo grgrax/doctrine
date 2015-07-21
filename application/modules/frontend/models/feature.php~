@@ -17,9 +17,10 @@ class feature
 private $id;
 
 /**
-* @ORM\ManyToOne(targetEntity="frontend\models\product",inversedBy="features")
+* @ORM\ManyToOne(targetEntity="frontend\models\eproduct",inversedBy="features")
+* @ORM\JoinColumn(nullable=false)
 */
-private $product;
+private $eproduct;
 
 /**
 * @ORM\Column(type="string")
@@ -38,26 +39,26 @@ private $name;
     }
 
     /**
-     * Set product
+     * Set eproduct
      *
-     * @param \frontend\models\product $product
+     * @param \frontend\models\eproduct $eproduct
      * @return feature
      */
-    public function setProduct(\frontend\models\product $product = null)
+    public function seteProduct(\frontend\models\eproduct $eproduct = null)
     {
-        $this->product = $product;
+        $this->eproduct = $eproduct;
 
         return $this;
     }
 
     /**
-     * Get product
+     * Get eproduct
      *
-     * @return \frontend\models\product 
+     * @return \frontend\models\eproduct 
      */
-    public function getProduct()
+    public function geteProduct()
     {
-        return $this->product;
+        return $this->eproduct;
     }
 
     /**

@@ -5,7 +5,7 @@
 		<label for="name">Name</label>
 		<input type="text" class="form-control" id="" placeholder="Input field"
 		name="name" disabled
-		value="<?php echo $product->getName();?>">
+		value="<?php echo $eproduct->getName();?>">
 	</div>
 
 
