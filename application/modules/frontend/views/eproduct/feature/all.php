@@ -5,7 +5,7 @@
 		<a href="<?php echo base_url('frontend/feature/').'/'.$feature->getId()?>">
 			<?php echo $feature->getName();?>
 		</a>
-		<b><?php echo $feature->getProduct()->getName()?></b> (Product)
+		<b><?php echo $feature->geteProduct()?$feature->geteProduct()->getName():''?></b> (Product)
 	</li>
 	<?php } ?>
 </ul>

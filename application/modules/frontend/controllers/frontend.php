@@ -68,7 +68,7 @@ class frontend extends Frontend_Controller {
 	function onetomanyfromfeature()
 	{
 		$this->data['features']=$features=$this->em->getRepository('frontend\models\feature')->findAll();
-		$this->data['subview']=self::MODULE.'feature/list';			
+		$this->data['subview']=self::MODULE.'eproduct/feature/all';			
 		$this->load->view('front/main_layout',$this->data);		
 	}
 
@@ -204,6 +204,29 @@ class frontend extends Frontend_Controller {
 			redirect('frontend/onetoonebicustomers');			
 		}
 	}
+
+	function add_eproduct(){
+		try{
+			if($this->input->post()){
+
+				//eproduct details
+				$eproduct = new frontend\models\eproduct;
+				$eproduct->setName($this->input->post('name')?$this->input->post('name'):NULL);
+				$this->em->persist($eproduct);
+				$this->em->flush();
+
+				$this->session->set_flashdata('success', 'eproduct added successfully');
+				redirect('frontend/onetomanyfromeproduct');
+			}
+			$this->data['subview']=self::MODULE.'eproduct/add';			
+			$this->load->view('front/main_layout',$this->data);		
+
+		} catch (Exception $e) {
+			$this->session->set_flashdata('error', 'coulnt add eproduct {$e->getMessage()}');
+			redirect('frontend/onetomanyfromeproduct');			
+		}
+	}
+
 	function add_feature($eproduct){
 		try {
 			$eproduct = $this->em->find('frontend\models\eproduct',$eproduct);
@@ -231,30 +254,6 @@ class frontend extends Frontend_Controller {
 			die($e->getMessage());
 			$this->session->set_flashdata('error {$e->getMessage()}', 'coulnt add eproduct');
 			redirect('frontend/onetomanyfromproduct');			
-		}
-	}
-
-// 9137766706699055
-
-	function add_eproduct(){
-		try{
-			if($this->input->post()){
-
-				//eproduct details
-				$eproduct = new frontend\models\eproduct;
-				$eproduct->setName($this->input->post('name')?$this->input->post('name'):NULL);
-				$this->em->persist($eproduct);
-				$this->em->flush();
-
-				$this->session->set_flashdata('success', 'eproduct added successfully');
-				redirect('frontend/onetomanyfromeproduct');
-			}
-			$this->data['subview']=self::MODULE.'eproduct/add';			
-			$this->load->view('front/main_layout',$this->data);		
-
-		} catch (Exception $e) {
-			$this->session->set_flashdata('error', 'coulnt add eproduct {$e->getMessage()}');
-			redirect('frontend/onetomanyfromeproduct');			
 		}
 	}
 
