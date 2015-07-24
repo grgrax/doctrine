@@ -1,33 +1,30 @@
 <?php
-
 namespace frontend\models;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
 * @ORM\Entity
-* @ORM\Table(name="tbl_countries")
+* @ORM\Table(name="tbl_groups")
 */
-class country 
+class group 
 {
 	
-/**
-* @ORM\Column(type="integer")
-* @ORM\Id
-* @ORM\GeneratedValue
-*/
-private $id;
+	/**
+	* @ORM\Column(type="integer")
+	* @ORM\Id
+	* @ORM\GeneratedValue
+	*/
+	private $id;
 
-/**
-* @ORM\Column(type="string",nullable=false)
-*/
-private $name;
-
+	/**
+	* @ORM\Column(type="string",nullable=false)
+	*/
+	private $name;
 
     /**
      * Get id
      *
-     * @return \intger 
+     * @return integer 
      */
     public function getId()
     {
@@ -38,7 +35,7 @@ private $name;
      * Set name
      *
      * @param string $name
-     * @return country
+     * @return group
      */
     public function setName($name)
     {

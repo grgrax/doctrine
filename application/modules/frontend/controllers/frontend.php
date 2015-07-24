@@ -421,7 +421,60 @@ class frontend extends Frontend_Controller {
 	}
 	// 1-8
 
+	// 8-8
+	function manytomanyusergroups()
+	{
+		$this->data['users']=$users=$this->em->getRepository('frontend\models\user')->findAll();
+		$this->data['subview']=self::MODULE.'user/list_groups';			
+		$this->load->view('front/main_layout',$this->data);		
+	}
 
+	function assign_user_to_groups($user){
+		try {
+			
+			$user = $this->em->find('frontend\models\user',$user);
+			if(!$user) throw new Exception("no user found", 1);
+			$this->data['user']=$user;			
+			
+			if($this->input->post()){
+				$user->setUsername($this->input->post('name')?$this->input->post('name'):NULL);
+				$user->resetGroup();
+				foreach ($this->input->post('groups') as $g) {
+					$group = $this->em->find('frontend\models\group',$g);
+					$user->addGroup($group);
+				}
+				$this->em->persist($user);
+				$this->em->flush();
+				$this->session->set_flashdata('success', 'user group updated successfully');
+				redirect('frontend/manytomanyusergroups');
+			}
+
+			$dbgroups=$this->em->getRepository('frontend\models\group')->findAll();
+			$groups=array();
+			foreach ($dbgroups as $g) {
+				$groups[$g->getId()]=$g->getName();
+			}
+			$this->data['groups']=$groups;
+
+			$ugroups=$user->getGroups();
+			$user_groups=array();
+			foreach ($ugroups as $ug) {
+				$user_groups[$ug->getId()]=$ug->getName();
+			}
+			$this->data['user_groups']=$user_groups;
+
+			// show_pre($groups);
+			// show_pre($user_groups);
+			// die;
+			$this->data['subview']=self::MODULE.'user/assign_groups';			
+			$this->load->view('front/main_layout',$this->data);					
+		} catch (Exception $e) {
+			$this->session->set_flashdata('error',"{$e->getMessage()} coulnt update user group");
+			redirect('frontend/manytomanyusergroups');			
+		}
+	}
+
+	// 8-8
 
 }	
 

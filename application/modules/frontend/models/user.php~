@@ -28,6 +28,11 @@ private $username;
 
 private $phonenos;
 
+/**
+* @ORM\ManyToMany(targetEntity="fronend\models\group")
+* @ORM\JoinTable(name="user_groups",joinColumns={@ORM\JoinColumn(name="group_id",referencedColumnName="id")},inverseJoinColumns={@ORM\JoinColumn(name="user_id",referencedColumnName="id")})
+*/
+private $groups;
 
 public function __construct()
 {
