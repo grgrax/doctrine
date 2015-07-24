@@ -39,29 +39,6 @@ private $name;
     }
 
     /**
-     * Set eproduct
-     *
-     * @param \frontend\models\eproduct $eproduct
-     * @return feature
-     */
-    public function seteProduct(\frontend\models\eproduct $eproduct = null)
-    {
-        $this->eproduct = $eproduct;
-
-        return $this;
-    }
-
-    /**
-     * Get eproduct
-     *
-     * @return \frontend\models\eproduct 
-     */
-    public function geteProduct()
-    {
-        return $this->eproduct;
-    }
-
-    /**
      * Set name
      *
      * @param string $name
@@ -84,4 +61,29 @@ private $name;
         return $this->name;
     }
 
+
+
+  
+    /**
+     * Set eproduct
+     *
+     * @param \frontend\models\eproduct $eproduct
+     * @return feature
+     */
+    public function setEproduct(\frontend\models\eproduct $eproduct)
+    {
+        $this->eproduct = $eproduct;
+
+        return $this;
+    }
+
+    /**
+     * Get eproduct
+     *
+     * @return \frontend\models\eproduct 
+     */
+    public function getEproduct()
+    {
+        return $this->eproduct;
+    }
 }

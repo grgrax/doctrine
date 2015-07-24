@@ -240,7 +240,7 @@ class frontend extends Frontend_Controller {
 				$this->em->persist($feature);
 
 				//eproduct details
-				$feature->seteProduct($eproduct);
+				$feature->setEproduct($eproduct);
 
 
 				$this->em->flush();
@@ -264,10 +264,10 @@ class frontend extends Frontend_Controller {
 				//eproduct details
 				$eproduct = new frontend\models\eproduct;
 				$eproduct->setName($this->input->post('name')?$this->input->post('name'):NULL);
-				foreach ($this->input->post('feature') as $f) {
+				foreach ($this->input->post('features') as $f) {
 					$feature = new frontend\models\feature;
 					$feature->setName($f);
-					$feature->seteProduct($eproduct);
+					$feature->setEproduct($eproduct);
 					$this->em->persist($feature);
 				}
 				$this->em->persist($eproduct);
@@ -276,7 +276,7 @@ class frontend extends Frontend_Controller {
 				$this->session->set_flashdata('success', 'eproduct added successfully');
 				redirect('frontend/onetomanyfromeproduct');
 			}
-			$this->data['subview']=self::MODULE.'eproduct/feature/add';			
+			$this->data['subview']=self::MODULE.'eproduct/add_with_feature';			
 			$this->load->view('front/main_layout',$this->data);		
 
 		} catch (Exception $e) {
@@ -285,6 +285,108 @@ class frontend extends Frontend_Controller {
 		}
 
 	}
+
+	// 1-8
+
+	function onetomanyselfcategory()
+	{
+		$this->data['cats']=$products=$this->em->getRepository('frontend\models\category')->findAll();
+		$this->data['subview']=self::MODULE.'category/list';			
+		$this->load->view('front/main_layout',$this->data);		
+	}
+
+	function add_category(){
+		try{
+			if($this->input->post()){
+				$category = new frontend\models\category;
+				$category->setName($this->input->post('name')?$this->input->post('name'):NULL);
+				$this->em->persist($category);
+				$this->em->flush();
+
+				$this->session->set_flashdata('success', 'category added successfully');
+				redirect('frontend/onetomanyselfcategory');
+			}
+			$this->data['subview']=self::MODULE.'category/add';			
+			$this->load->view('front/main_layout',$this->data);		
+
+		} catch (Exception $e) {
+			$this->session->set_flashdata('error', 'coulnt add category {$e->getMessage()}');
+			redirect('frontend/onetomanyselfcategory');			
+		}
+	}
+
+	function add_category_child($category){
+		try {
+			$category = $this->em->find('frontend\models\category',$category);
+			if(!$category) throw new Exception("no category found", 1);
+			$this->data['category']=$category;			
+			if($this->input->post()){
+
+				//feature details
+				$child = new frontend\models\category;
+				$child->setName($this->input->post('child')?$this->input->post('child'):NULL);
+				$this->em->persist($child);
+
+				//category details
+				$child->setParent($category);
+
+
+				$this->em->flush();
+				$this->session->set_flashdata('success', 'category added successfully with child');
+				redirect('frontend/onetomanyselfcategory');
+			}
+			$this->data['subview']=self::MODULE.'category/child/add';			
+			$this->load->view('front/main_layout',$this->data);		
+			
+		} catch (Exception $e) {
+			die($e->getMessage());
+			$this->session->set_flashdata('error {$e->getMessage()}', 'coulnt add category');
+			redirect('frontend/onetomanyselfcategory');			
+		}
+	}
+
+	
+
+	function add_category_with_childs(){
+		try{
+			if($this->input->post()){
+
+				//eproduct details
+				$category = new frontend\models\category;
+				$category->setName($this->input->post('name')?$this->input->post('name'):NULL);
+				
+				//from child side
+				// foreach ($this->input->post('childs') as $f) {
+				// 	$child = new frontend\models\category;
+				// 	$child->setName($f);
+				// 	$child->setParent($category);
+				// 	$this->em->persist($child);
+				// }
+				//from parent side
+				foreach ($this->input->post('childs') as $f) {
+					$child = new frontend\models\category;
+					$child->setName($f);
+					$child->setParent($category);
+					$category->addChild($child);
+					$this->em->persist($child);
+				}
+
+				$this->em->persist($category);
+				$this->em->flush();
+
+				$this->session->set_flashdata('success', 'category added successfully with childs');
+				redirect('frontend/onetomanyselfcategory');
+			}
+			$this->data['subview']=self::MODULE.'category/add_with_child';			
+			$this->load->view('front/main_layout',$this->data);		
+
+		} catch (Exception $e) {
+			$this->session->set_flashdata('error', "coulnt add category {$e->getMessage()}");
+			redirect('frontend/onetomanyselfcategory');			
+		}
+
+	}
+
 }	
 
 /* End of file sample.php */

@@ -86,4 +86,5 @@ class customer
     {
         return $this->cart;
     }
+
 }

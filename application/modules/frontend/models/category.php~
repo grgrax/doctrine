@@ -1,0 +1,41 @@
+<?php
+
+namespace frontend\models;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="tbl_categories")
+ */
+
+class category
+{
+	/**
+	* @ORM\Column(type="integer")
+	* @ORM\Id
+	* @ORM\GeneratedValue
+	*/
+	private $id;
+
+	/**
+	* @ORM\OneToMany(targetEntity="frontend\category",mappedBy="parent")
+	* @ORM\JoinColumn(nullable=false)
+	*/
+	private $childs;
+
+
+	/**
+	* @ORM\ManyToOne(targetEntity="frontend\category",inversedBy="childs")
+	* @ORM\JoinColumn(nullable=false)
+	*/
+	private $parent;
+
+	/**
+	* @ORM\Column(type="string",nullable=false)
+	*/
+	private $name;
+
+
+}
