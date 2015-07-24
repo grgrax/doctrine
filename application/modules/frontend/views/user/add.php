@@ -4,8 +4,7 @@
 	<div class="form-group">
 		<label for="mentor">Mentor</label>
 		<select name="mentor" id="" class="form-control">
-			<option value="null"> Select 
-			</option>
+			<option value="null"> Select </option>
 			<?php foreach ($students as $student): ?>
 				<option value="<?php echo $student->getId()?>">
 					<?php echo $student->getName();?>

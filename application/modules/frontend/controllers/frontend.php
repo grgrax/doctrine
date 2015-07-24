@@ -387,6 +387,42 @@ class frontend extends Frontend_Controller {
 
 	}
 
+	// 1-8
+
+	function manytooneclientcountry()
+	{
+		$this->data['clients']=$clients=$this->em->getRepository('frontend\models\client')->findAll();
+		$this->data['subview']=self::MODULE.'client/list';			
+		$this->load->view('front/main_layout',$this->data);		
+	}
+
+	function add_client(){
+		try{
+			$this->data['countries']=$countries=$this->em->getRepository('frontend\models\country')->findAll();
+			if($this->input->post()){
+				$client = new frontend\models\client;
+				$client->setName($this->input->post('name')?$this->input->post('name'):NULL);
+				if($this->input->post('country'))
+					$country=$this->em->find('student\models\country',$this->input->post('country'));
+				$client->setCountry($country);
+				$this->em->persist($client);
+				$this->em->flush();
+
+				$this->session->set_flashdata('success', 'client added successfully');
+				redirect('frontend/manytooneclientcountry');
+			}
+			$this->data['subview']=self::MODULE.'client/add';			
+			$this->load->view('front/main_layout',$this->data);		
+
+		} catch (Exception $e) {
+			$this->session->set_flashdata('error', "coulnt add client {$e->getMessage()}");
+			redirect('frontend/manytooneclientcountry');			
+		}
+	}
+	// 1-8
+
+
+
 }	
 
 /* End of file sample.php */

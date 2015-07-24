@@ -43,6 +43,7 @@ Product-Shipping
 <a href="<?php echo base_url('frontend/onetomanyfromeproduct')?>"><li>1-8 bi : product-features</li></a>
 <a href="<?php echo base_url('frontend/onetomanyfromfeature')?>"><li>1-8 bi : features-product</li></a>
 <a href="<?php echo base_url('frontend/onetomanyselfcategory')?>"><li>1-8 self : category : parent-childs</li></a>
+<a href="<?php echo base_url('frontend/manytooneclientcountry')?>"><li>8-1 uni : client-country</li></a>
 
 </ul>			
 </div>
