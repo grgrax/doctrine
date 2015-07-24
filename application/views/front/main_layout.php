@@ -33,18 +33,24 @@ flash_msg($class,$message);
 <div class="col-md-4">
 <ul class="nav nav-bar nav-stacked">
 <a href="<?php echo base_url('frontend/onetoone')?>"><li>1-1 student and mentor</li></a>
-<a href="<?php echo base_url('frontend/onetooneuni')?>"><li>1-1 Unidirectional
+<a href="<?php echo base_url('frontend/onetooneuni')?>"><li>1-1 Uni Product-Shipping</li></a>
 <br>
-Product-Shipping
-</li></a>
 <a href="<?php echo base_url('frontend/onetoonebi')?>"><li>1-1 bi : cart-customer</li></a>
 <a href="<?php echo base_url('frontend/onetoonebicustomers')?>"><li>1-1 bi : customer-cart</li></a>
+<br>
 <a href="<?php echo base_url('frontend/onetoonetbljoinuserpnos')?>"><li>1-8 with join table -- 8-8 : user-phone nos</li></a>
+<br>
 <a href="<?php echo base_url('frontend/onetomanyfromeproduct')?>"><li>1-8 bi : product-features</li></a>
 <a href="<?php echo base_url('frontend/onetomanyfromfeature')?>"><li>1-8 bi : features-product</li></a>
+<br>
 <a href="<?php echo base_url('frontend/onetomanyselfcategory')?>"><li>1-8 self : category : parent-childs</li></a>
+<br>
+<br>
 <a href="<?php echo base_url('frontend/manytooneclientcountry')?>"><li>8-1 uni : client-country</li></a>
 <a href="<?php echo base_url('frontend/manytomanyusergroups')?>"><li>8-8 : user-group</li></a>
+<br>
+<a href="<?php echo base_url('frontend/manytomanygroupspermissions')?>"><li>8-8 : groups-permissoins</li></a>
+<a href="<?php echo base_url('frontend/manytomanypermissionsgroups')?>"><li>8-8 : permissoins-groups</li></a>
 
 </ul>			
 </div>

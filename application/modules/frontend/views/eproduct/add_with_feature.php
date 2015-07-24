@@ -1,8 +1,6 @@
 <form action="" method="POST" role="form">
 	<legend>Add Product with feature</legend>
 
-	
-
 
 	<div class="form-group">
 		<label for="feature">Name</label>
@@ -27,6 +25,6 @@
 
 
 	<button type="submit" class="btn btn-success" name="submit">Submit</button>
-	<?php echo anchor('frontend', 'Cancel', 'class="btn btn-warning"'); ?>
+	<?php echo anchor('frontend/onetomanyfromeproduct', 'Cancel', 'class="btn btn-warning"'); ?>
 
 </form>

@@ -10,5 +10,5 @@
 	<?php } ?>
 </ul>
 <hr>
-<?php echo anchor('frontend/student_add/', 'Add', 'class="btn btn-success"'); ?>
+<?php echo anchor('frontend/student_add/onetoone', 'Add', 'class="btn btn-success"'); ?>
 <?php } ?>

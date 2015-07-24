@@ -1,21 +1,8 @@
 <form action="" method="POST" role="form">
-	<legend>Add Student</legend>
+	<legend>Add User</legend>
 
 	<div class="form-group">
-		<label for="mentor">Mentor</label>
-		<select name="mentor" id="" class="form-control">
-			<option value="null"> Select </option>
-			<?php foreach ($students as $student): ?>
-				<option value="<?php echo $student->getId()?>">
-					<?php echo $student->getName();?>
-				</option>
-			<?php endforeach ?>
-		</select>
-	</div>
-
-
-	<div class="form-group">
-		<label for="">label</label>
+		<label for="name">name</label>
 		<input type="text" class="form-control" id="" placeholder="Input field"
 		name="name"
 		value="<?php echo set_value('name');?>">

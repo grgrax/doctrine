@@ -22,6 +22,17 @@ class group
 	private $name;
 
     /**
+    * @ORM\ManyToMany(targetEntity="frontend\models\permission",inversedBy="group")
+    * @ORM\JoinTable(name="tbl_groups_permissions")
+    */
+    private $permissions;
+
+    public function __construct()
+    {
+        $this->permissons = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -52,5 +63,42 @@ class group
     public function getName()
     {
         return $this->name;
+    }
+
+    public function resetPermisson()
+    {
+        $this->permissons = new \Doctrine\Common\Collections\ArrayCollection;
+    }
+    /**
+     * Add permissons
+     *
+     * @param \frontend\models\permisson $permissons
+     * @return group
+     */
+    public function addPermisson(\frontend\models\permisson $permissons)
+    {
+        $this->permissons[] = $permissons;
+
+        return $this;
+    }
+
+    /**
+     * Remove permissons
+     *
+     * @param \frontend\models\permisson $permissons
+     */
+    public function removePermisson(\frontend\models\permisson $permissons)
+    {
+        $this->permissons->removeElement($permissons);
+    }
+
+    /**
+     * Get permissons
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPermissons()
+    {
+        return $this->permissons;
     }
 }

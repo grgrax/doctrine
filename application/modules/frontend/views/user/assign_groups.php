@@ -11,7 +11,7 @@
 
 	<div class="form-group">
 		<label for="groups">Groups</label>
-		<select name="groups[]" id="" class="form-control" multiple="mutiple">
+		<select name="groups[]" id="" class="form-control" multiple="mutiple" size="10">
 			<?php foreach ($groups as $k=>$v): ?>				
 				<option value="<?php echo $k?>" 
 					<?php echo array_key_exists($k, $user_groups)?'selected':'';?>	>
@@ -25,7 +25,7 @@
 
 
 	<button type="submit" class="btn btn-success" name="submit">Submit</button>
-	<?php echo anchor('frontend', 'Cancel', 'class="btn btn-warning"'); ?>
+	<?php echo anchor('frontend/manytomanyusergroups', 'Cancel', 'class="btn btn-warning"'); ?>
 
 </form>
 <?php } ?>

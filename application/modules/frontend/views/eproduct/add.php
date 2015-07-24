@@ -1,9 +1,6 @@
 <form action="" method="POST" role="form">
 	<legend>Add Product</legend>
 
-	
-
-
 	<div class="form-group">
 		<label for="feature">Name</label>
 		<input type="text" class="form-control" id="" placeholder="Input field"
@@ -13,6 +10,6 @@
 
 
 	<button type="submit" class="btn btn-success" name="submit">Submit</button>
-	<?php echo anchor('frontend', 'Cancel', 'class="btn btn-warning"'); ?>
+	<?php echo anchor('frontend/onetomanyfromeproduct', 'Cancel', 'class="btn btn-warning"'); ?>
 
 </form>

@@ -9,7 +9,7 @@
 		<?php echo $cat->getParent()?$cat->getParent()->getName()."(parent)":'';?>
 		---
 		<?php 
-		echo anchor('frontend/add_category_child/'.$cat->getId(), 'Add childs', 'class="btn btn-xs-2 btn-success"');
+		echo anchor('frontend/add_category_child/'.$cat->getId(), 'Add child', 'class="btn btn-xs-2 btn-success"');
 		if(count($cat->getChilds())>0) { ?>
 		<ul style="margin-left:50px;">
 			Childs

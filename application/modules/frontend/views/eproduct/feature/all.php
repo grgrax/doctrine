@@ -13,4 +13,4 @@
 <?php } else {?>
 <p>no data</p>
 <?php } ?>
-<?php echo anchor('frontend/feature_add/', 'Add', 'class="btn btn-success"'); ?>
+<?php echo anchor('frontend/onetomanyfromfeature/', 'Cancel', 'class="btn btn-warning"'); ?>

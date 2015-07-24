@@ -7,7 +7,7 @@
 		</a>
 	
 		<?php 
-		echo anchor('frontend/add_phone', 'Add Phone No', 'class="btn btn-xs-2 btn-success"');
+		echo anchor('frontend/add_phone/'.$user->getId(), 'Add Phone No', 'class="btn btn-xs-2 btn-success"');
 		if(count($user->getPhonenos())>0) { ?>
 		<ul style="margin-left:50px;">
 			phones
@@ -28,4 +28,4 @@
 <?php } else {?>
 <p>no data</p>
 <?php } ?>
-<?php echo anchor('frontend/user_add_n_phone/', 'Add', 'class="btn btn-success"'); ?>
+<?php echo anchor('frontend/add_user/', 'Add', 'class="btn btn-success"'); ?>
