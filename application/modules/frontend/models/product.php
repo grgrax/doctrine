@@ -31,11 +31,7 @@ class product
     */
     private $shipping;
 
-    /**
-    * @ORM\OneToMany(targetEntity="frontend\models\feature",mappedBy="product")
-    */
-    private $features;
-
+   
 
 
     /**
@@ -93,45 +89,6 @@ class product
     {
         return $this->shipping;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->features = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 
-    /**
-     * Add features
-     *
-     * @param \frontend\models\feature $features
-     * @return product
-     */
-    public function addFeature(\frontend\models\feature $features)
-    {
-        $this->features[] = $features;
-
-        return $this;
-    }
-
-    /**
-     * Remove features
-     *
-     * @param \frontend\models\feature $features
-     */
-    public function removeFeature(\frontend\models\feature $features)
-    {
-        $this->features->removeElement($features);
-    }
-
-    /**
-     * Get features
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFeatures()
-    {
-        return $this->features;
-    }
 }

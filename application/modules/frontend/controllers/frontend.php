@@ -477,6 +477,13 @@ class frontend extends Frontend_Controller {
 			
 			if($this->input->post()){
 				$user->setUsername($this->input->post('name')?$this->input->post('name'):NULL);
+				
+				
+				//method 1 how to use it 
+				// if($user->getGroups())
+				// 	$user->removeGroup($user->getGroups());
+				
+				//method 2
 				$user->resetGroup();
 				foreach ($this->input->post('groups') as $g) {
 					$group = $this->em->find('frontend\models\group',$g);

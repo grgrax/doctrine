@@ -31,11 +31,7 @@ class product
     */
     private $shipping;
 
-    /**
-    * @ORM\OneToMany(targetEntity="frontend\models\feature",mappedBy="product")
-    */
-    private $features;
-
+   
 
 
     /**

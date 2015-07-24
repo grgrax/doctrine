@@ -65,40 +65,41 @@ class group
         return $this->name;
     }
 
-    public function resetPermisson()
+    public function resetPermissons()
     {
-        $this->permissons = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->permissions = new \Doctrine\Common\Collections\ArrayCollection;
     }
+
     /**
-     * Add permissons
+     * Add permissions
      *
-     * @param \frontend\models\permisson $permissons
+     * @param \frontend\models\permission $permissions
      * @return group
      */
-    public function addPermisson(\frontend\models\permisson $permissons)
+    public function addPermission(\frontend\models\permission $permissions)
     {
-        $this->permissons[] = $permissons;
+        $this->permissions[] = $permissions;
 
         return $this;
     }
 
     /**
-     * Remove permissons
+     * Remove permissions
      *
-     * @param \frontend\models\permisson $permissons
+     * @param \frontend\models\permission $permissions
      */
-    public function removePermisson(\frontend\models\permisson $permissons)
+    public function removePermission(\frontend\models\permission $permissions)
     {
-        $this->permissons->removeElement($permissons);
+        $this->permissions->removeElement($permissions);
     }
 
     /**
-     * Get permissons
+     * Get permissions
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPermissons()
+    public function getPermissions()
     {
-        return $this->permissons;
+        return $this->permissions;
     }
 }
